@@ -366,9 +366,9 @@ function renderMobileAgenda(sessions, speakers) {
     // Current Time Logic (Mockable)
     const now = new Date();
     // To test "Happening Now", uncomment the line below and set a time within a session
-    // const now = new Date('2025-12-20T11:10:00');
+    // const now = new Date('2026-10-17T11:10:00');
 
-    const eventDateStr = '2025-12-20';
+    const eventDateStr = '2026-10-17';
     const todayStr = now.toISOString().split('T')[0];
     const isEventDay = todayStr === eventDateStr;
 

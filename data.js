@@ -7,8 +7,8 @@ const devFestConfig = {
     year: "2026",
     edition: "DevFest Tripoli 2026",
     tagline: "GDG North Lebanon",
-    dateDisplay: "Coming in 2026",
-    locationDisplay: "Tripoli, Lebanon",
+    dateDisplay: "October 17, 2026",
+    locationDisplay: "BAU Tripoli",
     registrationUrl: "https://rsvp.gdglebanon.com/",
     contactEmail: "info@gdglebanon.com",
 
