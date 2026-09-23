@@ -2341,6 +2341,11 @@ html[data-js="true"] .reveal-up.is-visible {
         /* Override justify-content: center */
     }
 
+    .speakers-grid .coming-soon-card {
+        grid-column: 1 / -1;
+        width: 100%;
+    }
+
     .sponsor-card,
     .speaker-card,
     .card {
@@ -2657,6 +2662,10 @@ html[data-js="true"] .reveal-up.is-visible {
     color: var(--google-blue);
     margin-bottom: 16px;
     border: 1px solid rgba(66, 133, 244, 0.2);
+}
+
+.speaker-cfp-cta {
+    margin-bottom: 18px;
 }
 
 .coming-soon-title {

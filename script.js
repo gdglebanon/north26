@@ -607,6 +607,7 @@ function renderSpeakersComingSoon(container) {
                     </svg>
                 </div>
             </div>
+            <a href="https://sessionize.com/devfest-tripoli-2026/" target="_blank" rel="noopener" class="btn btn-primary speaker-cfp-cta">CFP now open! Apply to speak</a>
             <span class="coming-soon-badge">Speakers • Coming Soon</span>
             <h3 class="coming-soon-title">World-Class Speakers Lineup</h3>
             <p class="coming-soon-desc">
@@ -616,7 +617,7 @@ function renderSpeakersComingSoon(container) {
                 <div class="cfs-badge">Call for Speakers</div>
                 <h4>Have an inspiring talk or workshop in mind?</h4>
                 <p>Submit your topic or get in touch with our team to speak at DevFest North 2026.</p>
-                <a href="mailto:info@gdglebanon.com?subject=DevFest%202026%20Call%20for%20Speakers%20Proposal" class="btn btn-secondary">Submit Speaker Proposal</a>
+                <a href="https://sessionize.com/devfest-tripoli-2026/" target="_blank" rel="noopener" class="btn btn-secondary">Submit Speaker Proposal</a>
             </div>
         </div>
     `;
