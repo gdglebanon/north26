@@ -643,8 +643,8 @@ function renderSponsorsComingSoon(container) {
             Partner with North Lebanon's premier tech conference. Connect with over 1,000 top engineers, designers, innovators, and university talent. We offer tailored sponsorship and exhibition packages.
         </p>
         <div class="coming-soon-actions">
-            <a href="mailto:info@gdglebanon.com?subject=DevFest%202026%20Sponsorship%20Inquiry" class="btn btn-primary">Become a Sponsor</a>
-            <a href="mailto:info@gdglebanon.com?subject=DevFest%202026%20Community%20Partner" class="btn btn-secondary">Partner as Community</a>
+            <a href="https://docs.google.com/presentation/d/1NdlhLGxZ24IsxbqB2D7CYLVs-2xVUxfKrc5WmAPlBzQ/edit?usp=sharing" target="_blank" rel="noopener" class="btn btn-primary">Become a Sponsor</a>
+            <a href="https://docs.google.com/presentation/d/1NdlhLGxZ24IsxbqB2D7CYLVs-2xVUxfKrc5WmAPlBzQ/edit?usp=sharing" target="_blank" rel="noopener" class="btn btn-secondary">Partner as Community</a>
         </div>
     `;
     container.appendChild(comingSoonWrap);
