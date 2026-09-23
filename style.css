@@ -140,13 +140,48 @@ img {
     align-items: center;
 }
 
-.logo img {
-    height: 56px;
+.logo {
+    display: inline-flex;
+    align-items: center;
+}
+
+.logo-mark {
+    display: inline-flex;
+    align-items: baseline;
+    font-family: 'Google Sans', 'Product Sans', var(--font-family);
+    font-size: clamp(2rem, 5vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1;
+    letter-spacing: 0;
+    white-space: nowrap;
+}
+
+.logo-brace--close,
+.logo-year {
+    color: var(--google-red);
+}
+
+.logo-brace--open {
+    margin-right: 0.08em;
+}
+
+.logo-brace--close {
+    margin-left: 0.06em;
+    margin-right: 0.12em;
+}
+
+.logo-brace--open,
+.logo-dev {
+    color: var(--google-green);
+}
+
+.logo-fest {
+    color: var(--google-red);
 }
 
 @media (max-width: 768px) {
-    .logo img {
-        height: 48px;
+    .logo-mark {
+        font-size: clamp(1.65rem, 8vw, 2.2rem);
     }
 }
 
