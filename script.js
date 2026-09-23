@@ -957,6 +957,14 @@ window.openSpeakerModalById = (speakerId) => {
 
 // --- Badge Generator Logic ---
 document.addEventListener('DOMContentLoaded', async () => {
+    const showBadgeGenerator = typeof devFestConfig !== 'undefined' && devFestConfig.showBadgeGenerator === true;
+    const badgeSection = document.getElementById('badge-generator');
+    if (badgeSection) badgeSection.classList.toggle('hidden', !showBadgeGenerator);
+    document.querySelectorAll('a[href="#badge-generator"]').forEach(link => {
+        (link.closest('li') || link).classList.toggle('hidden', !showBadgeGenerator);
+    });
+    if (!showBadgeGenerator) return;
+
     const canvas = document.getElementById('badgeCanvas');
     if (!canvas) return;
 
