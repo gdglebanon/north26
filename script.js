@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    console.log('DevFest North 2025 website loaded!');
+    console.log('DevFest North 2026 website loaded!');
     document.documentElement.dataset.js = 'true';
 
     // Handle Code of Conduct link on mobile
@@ -53,69 +53,81 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Dynamic Content Rendering ---
+    // --- Dynamic Content Rendering using devFestConfig toggles ---
+    const isConfigDefined = typeof devFestConfig !== 'undefined';
+    const showAgenda = isConfigDefined ? devFestConfig.showAgenda : false;
+    const showSpeakers = isConfigDefined ? devFestConfig.showSpeakers : false;
+    const showSponsors = isConfigDefined ? devFestConfig.showSponsors : false;
 
-    // Render Agenda
+    // 1. Render Agenda or Coming Soon
     const agendaTracks = document.getElementById('agenda-tracks');
-    if (agendaTracks && typeof devFestData !== 'undefined') {
-        renderAgenda(agendaTracks, devFestData);
-    }
-
-    // Render Mobile Agenda
     const mobileAgendaContainer = document.getElementById('mobile-agenda');
-    if (mobileAgendaContainer && typeof devFestData !== 'undefined') {
-        renderMobileAgenda(devFestData.sessions, devFestData.speakers);
+    const searchContainer = document.querySelector('.agenda-search-container');
+    const pdfContainer = document.querySelector('.pdf-download-container');
+
+    if (showAgenda && typeof devFestData !== 'undefined') {
+        if (searchContainer) searchContainer.style.display = 'flex';
+        if (pdfContainer) pdfContainer.style.display = 'block';
+        if (agendaTracks) renderAgenda(agendaTracks, devFestData);
+        if (mobileAgendaContainer) renderMobileAgenda(devFestData.sessions, devFestData.speakers);
+    } else {
+        if (searchContainer) searchContainer.style.display = 'none';
+        if (pdfContainer) pdfContainer.style.display = 'none';
+        const agendaContainer = document.querySelector('#agenda .agenda-container');
+        if (agendaContainer) {
+            renderAgendaComingSoon(agendaContainer);
+        }
     }
 
-    // Render Speakers
+    // 2. Render Speakers or Coming Soon
     const speakersGrid = document.getElementById('speakers-grid');
-    if (speakersGrid && typeof devFestData !== 'undefined') {
-        renderSpeakers(speakersGrid, devFestData.speakers);
+    if (speakersGrid) {
+        if (showSpeakers && typeof devFestData !== 'undefined' && devFestData.speakers) {
+            renderSpeakers(speakersGrid, devFestData.speakers);
+        } else {
+            renderSpeakersComingSoon(speakersGrid);
+        }
     }
 
-    // Render Sponsors
+    // 3. Render Sponsors or Coming Soon
     const sponsorsContainer = document.querySelector('#sponsors .container');
-    if (sponsorsContainer && typeof devFestData !== 'undefined' && devFestData.sponsors) {
-        renderSponsors(sponsorsContainer, devFestData.sponsors);
+    if (sponsorsContainer) {
+        if (showSponsors && typeof devFestData !== 'undefined' && devFestData.sponsors) {
+            renderSponsors(sponsorsContainer, devFestData.sponsors);
+        } else {
+            renderSponsorsComingSoon(sponsorsContainer);
+        }
     }
 
-    // Render FAQ
+    // 4. Render FAQ
     const faqData = [
         {
             "question": "What is DevFest?",
-            "answer": "DevFest is an annual decentralized tech conference hosted by the Google Developer Groups (GDG) community. GDGs host these events around the globe. It brings developers together to learn about the latest Google technologies, explore how to leverage them for social and economic impact, and connect with like-minded innovators. Since its launch more than a decade ago, DevFest has grown into a global movement that empowers developers to collaborate, upskill, and build solutions that matter."
+            "answer": "DevFest is an annual decentralized tech conference hosted by the Google Developer Groups (GDG) community worldwide. It brings developers, engineers, and tech innovators together to explore cutting-edge technologies, build impactful solutions, and connect with fellow builders."
         },
         {
-            "question": "What is DevFest in Lebanon?",
-            "answer": "In Lebanon, DevFest has been held since 2017, with recent editions taking place in both Beirut and Tripoli. DevFest Beirut is proudly organized by GDG Coast Lebanon, and DevFest Tripoli is proudly organized by GDG North Lebanon. The 2023 edition of DevFest Tripoli received over 1,000 applications, with more than 400 attendees joining the experience. For 2025, we’re scaling up again and aiming to welcome 1,000 developers, students, and tech enthusiasts from across Lebanon to connect, learn, and build together."
+            "question": "What is DevFest North Lebanon 2026?",
+            "answer": "DevFest Tripoli 2026 is proudly organized by <strong>GDG North Lebanon</strong>. Following record participation in past editions, DevFest 2026 is scaling up to welcome over 1,000 developers, students, and technology leaders to learn, share knowledge, and build together in North Lebanon."
         },
         {
             "question": "What is Google Developer Groups (GDG)?",
-            "answer": "Google Developer Groups (GDG) is the largest developer community in the world. Over 1000+ GDGs exist in 140+ countries around the globe. The program helps developers connect with one another and learn about building products on all Google platforms.<br><br>Each GDG is a local community hub of professional developers who share expertise and passion for Google's developer technology.<br><br>GDG communities coordinate community activities centered around helping developers learn, connect, and grow while building a strong sense of belonging to the local and global Google Developer Groups community."
+            "answer": "Google Developer Groups (GDG) is the largest developer community in the world with over 1000+ chapters across 140+ countries. The program empowers developers to connect with one another and master building products on Google and open developer platforms."
         },
         {
-            "question": "What is Google Developer Groups (GDG) in Lebanon?",
-            "answer": "Lebanon is home to two active Google Developer Groups: <strong>GDG Coast Lebanon</strong> and <strong>GDG North Lebanon</strong>.</p><ul><li><strong>GDG Coast Lebanon</strong>: Founded in <strong>2017</strong>, it is based along the coastal region and organizes events in Beirut, Saida, and Byblos. The group is known for hosting flagship events like <strong>DevFest Beirut</strong> and <strong>Build with AI</strong>, and for creating inclusive spaces where developers, students, and tech enthusiasts can learn and collaborate.</li><li><strong>GDG North Lebanon</strong>: Founded in <strong>2019</strong>, it is based in Tripoli and serves the northern region with workshops, study jams, and community events. The group also organizes <strong>DevFest Tripoli</strong>, connecting northern developers with the wider global GDG network.</li></ul><p><br>Together, these communities strengthen Lebanon’s developer ecosystem while linking it to the world’s largest tech community."
+            "question": "What GDG communities exist in Lebanon?",
+            "answer": "Lebanon is home to two active Google Developer Groups: <strong>GDG Coast Lebanon</strong> (founded 2017) and <strong>GDG North Lebanon</strong> (founded 2019, based in Tripoli). Together, they strengthen Lebanon's tech ecosystem through workshops, hackathons, and flagship conferences."
         },
         {
-            "question": "How can I become a member of Google Developer Group?",
-            "answer": "You can join <a href='https://gdg.community.dev/gdg-coast-lebanon'> GDG Coast Lebanon </a> and <a href='https://gdg.community.dev/gdg-north-lebanon'> GDG North Lebanon </a> by signing up through the official GDG platform. Once you join, you’ll be able to RSVP to events, connect with fellow developers, and stay updated on upcoming activities."
+            "question": "How can I get involved as a Speaker or Sponsor for 2026?",
+            "answer": "We are currently accepting speaker proposals and sponsor inquiries for DevFest 2026! Reach out to us at <a href='mailto:info@gdglebanon.com'>info@gdglebanon.com</a> to discuss speaking opportunities or custom sponsorship packages."
         },
         {
-            "question": "What technologies might I use at a DevFest?",
-            "answer": "At DevFest, you’ll explore the latest technologies shaping the future of development. You will learn more about the latest in Web, Mobile, Cloud, AI, and Firebase and hands-on with tools including Angular, Flutter and Google Cloud."
+            "question": "What technologies are highlighted at DevFest 2026?",
+            "answer": "DevFest 2026 covers Artificial Intelligence & Machine Learning (Gemini, LLMs), Cloud & DevOps, Web Technologies (Angular, modern JS), Mobile (Flutter, Android), Cybersecurity, and tech career growth."
         },
         {
-            "question": "How can I join the workshops?",
-            "answer": "Workshop seats are limited. Make sure you arrive the workshop session on time and bring your laptop."
-        },
-        {
-            "question": "Can you accommodate my dietary requirements?",
-            "answer": "Please indicate any specific dietary needs on the registration form. For any questions, please don't hesitate to reach out to us at <a href='mailto:info@gdglebanon.com'>info@gdglebanon.com</a>.<br><br>Please note that all meat served at this event will be halal."
-        },
-        {
-            "question": "I have other questions. How can I contact you?",
-            "answer": "Reach out to us at <a href='mailto:info@gdglebanon.com'>info@gdglebanon.com</a>."
+            "question": "How can I stay updated on registration and schedule?",
+            "answer": "Join <a href='https://gdg.community.dev/gdg-north-lebanon' target='_blank'>GDG North Lebanon on the GDG platform</a> and follow our social channels. You can also reach us directly at <a href='mailto:info@gdglebanon.com'>info@gdglebanon.com</a>."
         }
     ];
 
@@ -124,13 +136,12 @@ document.addEventListener('DOMContentLoaded', () => {
         renderFAQ(faqGrid, faqData);
     }
 
-
     // Modal Logic
     setupModals();
 
-    // --- Search Logic ---
+    // --- Search Logic (Active when showAgenda is true) ---
     const searchInput = document.getElementById('agendaSearch');
-    if (searchInput && typeof devFestData !== 'undefined') {
+    if (searchInput && showAgenda && typeof devFestData !== 'undefined') {
         searchInput.addEventListener('input', (e) => {
             const searchTerm = e.target.value.toLowerCase();
             filterSessions(searchTerm);
@@ -526,6 +537,117 @@ function renderFAQ(container, data) {
         `;
         container.appendChild(details);
     });
+}
+
+function renderAgendaComingSoon(container) {
+    container.innerHTML = `
+        <div class="coming-soon-card coming-soon-card--agenda reveal-up">
+            <div class="coming-soon-icon-wrapper">
+                <div class="coming-soon-icon agenda-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                        <line x1="16" y1="2" x2="16" y2="6"></line>
+                        <line x1="8" y1="2" x2="8" y2="6"></line>
+                        <line x1="3" y1="10" x2="21" y2="10"></line>
+                    </svg>
+                </div>
+            </div>
+            <span class="coming-soon-badge">Agenda • Coming Soon</span>
+            <h3 class="coming-soon-title">Detailed Schedule Dropping Soon</h3>
+            <p class="coming-soon-desc">
+                We are curating an inspiring schedule featuring world-class keynotes, deep-dive technical tracks, and hands-on workshops across AI, Cloud, Web, Mobile, and DevOps.
+            </p>
+            <div class="coming-soon-features-grid">
+                <div class="teaser-card">
+                    <div class="teaser-icon-dot blue"></div>
+                    <div>
+                        <h4>Keynotes & Vision</h4>
+                        <p>Inspiring sessions by industry pioneers</p>
+                    </div>
+                </div>
+                <div class="teaser-card">
+                    <div class="teaser-icon-dot green"></div>
+                    <div>
+                        <h4>Hands-on Workshops</h4>
+                        <p>Interactive coding labs with modern tools</p>
+                    </div>
+                </div>
+                <div class="teaser-card">
+                    <div class="teaser-icon-dot yellow"></div>
+                    <div>
+                        <h4>Panel Discussions</h4>
+                        <p>Real-world insights & future trends</p>
+                    </div>
+                </div>
+                <div class="teaser-card">
+                    <div class="teaser-icon-dot red"></div>
+                    <div>
+                        <h4>Networking & Expo</h4>
+                        <p>Connect with peers, startups & mentors</p>
+                    </div>
+                </div>
+            </div>
+            <div class="coming-soon-actions">
+                <a href="mailto:info@gdglebanon.com?subject=DevFest%202026%20Agenda%20Updates" class="btn btn-primary">Get Notified When Agenda Releases</a>
+            </div>
+        </div>
+    `;
+}
+
+function renderSpeakersComingSoon(container) {
+    container.innerHTML = `
+        <div class="coming-soon-card coming-soon-card--speakers reveal-up">
+            <div class="coming-soon-icon-wrapper">
+                <div class="coming-soon-icon speaker-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                </div>
+            </div>
+            <span class="coming-soon-badge">Speakers • Coming Soon</span>
+            <h3 class="coming-soon-title">World-Class Speakers Lineup</h3>
+            <p class="coming-soon-desc">
+                We will be announcing exceptional tech leaders, Google Developer Experts (GDEs), software architects, and community innovators very soon!
+            </p>
+            <div class="cfs-banner">
+                <div class="cfs-badge">Call for Speakers</div>
+                <h4>Have an inspiring talk or workshop in mind?</h4>
+                <p>Submit your topic or get in touch with our team to speak at DevFest North 2026.</p>
+                <a href="mailto:info@gdglebanon.com?subject=DevFest%202026%20Call%20for%20Speakers%20Proposal" class="btn btn-secondary">Submit Speaker Proposal</a>
+            </div>
+        </div>
+    `;
+}
+
+function renderSponsorsComingSoon(container) {
+    const header = container.querySelector('.section-header');
+    container.innerHTML = '';
+    if (header) container.appendChild(header);
+
+    const comingSoonWrap = document.createElement('div');
+    comingSoonWrap.className = 'coming-soon-card coming-soon-card--sponsors reveal-up';
+    comingSoonWrap.innerHTML = `
+        <div class="coming-soon-icon-wrapper">
+            <div class="coming-soon-icon sponsor-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+            </div>
+        </div>
+        <span class="coming-soon-badge">Partnerships • Open for 2026</span>
+        <h3 class="coming-soon-title">Support DevFest North 2026</h3>
+        <p class="coming-soon-desc">
+            Partner with North Lebanon's premier tech conference. Connect with over 1,000 top engineers, designers, innovators, and university talent. We offer tailored sponsorship and exhibition packages.
+        </p>
+        <div class="coming-soon-actions">
+            <a href="mailto:info@gdglebanon.com?subject=DevFest%202026%20Sponsorship%20Inquiry" class="btn btn-primary">Become a Sponsor</a>
+            <a href="mailto:info@gdglebanon.com?subject=DevFest%202026%20Community%20Partner" class="btn btn-secondary">Partner as Community</a>
+        </div>
+    `;
+    container.appendChild(comingSoonWrap);
 }
 
 function renderSpeakers(container, speakers) {

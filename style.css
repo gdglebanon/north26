@@ -202,15 +202,14 @@ img {
 
 .hero .container {
     display: grid;
-    grid-template-columns: minmax(0, 580px) 1fr;
-    align-items: start;
-    gap: 48px;
+    grid-template-columns: 1fr minmax(0, 480px);
+    align-items: center;
+    gap: 64px;
     flex: 1;
 }
 
 .hero-content {
     flex: 1;
-    max-width: 580px;
     z-index: 2;
     position: relative;
 }
@@ -218,51 +217,91 @@ img {
 .hero-image {
     position: relative;
     display: flex;
-    align-items: flex-end;
-    justify-content: flex-end;
+    align-items: center;
+    justify-content: center;
     width: 100%;
-    pointer-events: none;
 }
 
 .hero-visual {
     width: 100%;
-    border-radius: 0;
-    overflow: visible;
-    box-shadow: none;
+    position: relative;
 }
 
 .hero-visual img {
     display: block;
     width: 100%;
     height: auto;
+}
+
+/* Poster 2026 Showcase Styling */
+.hero-image--poster {
+    justify-self: center;
+    align-self: center;
+    max-width: 520px;
+    margin: 0 auto;
+    position: relative;
+}
+
+.hero-visual--poster {
+    position: relative;
+    border-radius: 28px;
+    overflow: hidden;
+    box-shadow: 0 20px 50px rgba(66, 133, 244, 0.2), 0 10px 25px rgba(52, 168, 83, 0.15), 0 0 0 1px rgba(66, 133, 244, 0.15);
+    background: #ffffff;
+    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease;
+    animation: floatPoster 6s ease-in-out infinite alternate;
+}
+
+.hero-visual--poster:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: 0 30px 65px rgba(66, 133, 244, 0.28), 0 15px 35px rgba(52, 168, 83, 0.2), 0 0 0 1.5px rgba(66, 133, 244, 0.3);
+}
+
+.hero-visual--poster img {
+    width: 100%;
+    height: 480px;
     object-fit: cover;
+    object-position: top center;
+    display: block;
+    -webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 78%, rgba(0, 0, 0, 0.85) 90%, rgba(0, 0, 0, 0.5) 100%);
+    mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 1) 78%, rgba(0, 0, 0, 0.85) 90%, rgba(0, 0, 0, 0.5) 100%);
 }
 
-.hero-image--tripoli {
-    width: clamp(820px, 62vw, 1240px);
-    justify-self: end;
-    align-self: end;
-    max-width: none;
-    margin-right: -140px;
-    margin-left: -80px;
+.hero-poster-glow {
+    position: absolute;
+    top: -20%;
+    left: -20%;
+    width: 140%;
+    height: 140%;
+    background: radial-gradient(circle at 50% 30%, rgba(66, 133, 244, 0.25), rgba(52, 168, 83, 0.2), rgba(251, 188, 4, 0.15), transparent 70%);
+    z-index: -1;
+    filter: blur(40px);
+    pointer-events: none;
+    border-radius: 50%;
 }
 
-.hero-image--tripoli img {
-    opacity: 0.32;
-    object-fit: contain;
-    transform: translateY(200px) scale(1.12);
-    transform-origin: right bottom;
+@keyframes floatPoster {
+    0% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(-12px);
+    }
 }
 
 @media (max-width: 1024px) {
-    .hero-image--tripoli {
-        width: clamp(560px, 62vw, 980px);
-        margin-right: -90px;
-        margin-left: -50px;
+    .hero-visual--poster img {
+        height: 400px;
     }
+}
 
-    .hero-image--tripoli img {
-        transform: translateY(190px) scale(1.1);
+@media (max-width: 768px) {
+    .hero-image--poster {
+        max-width: 100%;
+        margin-top: 35px;
+    }
+    .hero-visual--poster img {
+        height: 360px;
     }
 }
 
@@ -866,10 +905,13 @@ html[data-js="true"] .reveal-up.is-visible {
 @media (min-width: 769px) {
     .speakers-grid {
         display: grid;
-        grid-template-columns: repeat(4, 1fr);
+        grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
         gap: 30px;
-        justify-content: start;
-        /* Align correctly if grid */
+    }
+
+    /* When it holds a coming-soon card, span full width */
+    .speakers-grid .coming-soon-card {
+        grid-column: 1 / -1;
     }
 }
 
@@ -2533,5 +2575,232 @@ html[data-js="true"] .reveal-up.is-visible {
     .about-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 20px;
+    }
+}
+
+/* ==========================================================================
+   Coming Soon State Styling (DevFest 2026)
+   ========================================================================== */
+.coming-soon-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(248, 250, 252, 0.9));
+    border: 1.5px solid rgba(66, 133, 244, 0.18);
+    border-radius: 28px;
+    padding: 56px 40px;
+    text-align: center;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.04), 0 0 0 1px rgba(255, 255, 255, 0.8) inset;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+    overflow: hidden;
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+}
+
+.coming-soon-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 5px;
+    background: linear-gradient(90deg, var(--google-blue), var(--google-red), var(--google-yellow), var(--google-green));
+}
+
+.coming-soon-icon-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.coming-soon-icon {
+    width: 68px;
+    height: 68px;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.coming-soon-icon svg {
+    width: 32px;
+    height: 32px;
+}
+
+.agenda-icon {
+    background: linear-gradient(135deg, #e8f0fe, #d2e3fc);
+    color: var(--google-blue);
+    border: 1px solid rgba(66, 133, 244, 0.3);
+}
+
+.speaker-icon {
+    background: linear-gradient(135deg, #fce8e6, #fad2cf);
+    color: var(--google-red);
+    border: 1px solid rgba(234, 67, 53, 0.3);
+}
+
+.sponsor-icon {
+    background: linear-gradient(135deg, #e6f4ea, #ceead6);
+    color: var(--google-green);
+    border: 1px solid rgba(52, 168, 83, 0.3);
+}
+
+.coming-soon-badge {
+    display: inline-block;
+    padding: 6px 16px;
+    border-radius: 50px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    background: rgba(66, 133, 244, 0.1);
+    color: var(--google-blue);
+    margin-bottom: 16px;
+    border: 1px solid rgba(66, 133, 244, 0.2);
+}
+
+.coming-soon-title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+}
+
+.coming-soon-desc {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    max-width: 680px;
+    margin: 0 auto 36px auto;
+    line-height: 1.7;
+}
+
+/* Teaser Feature Cards inside Coming Soon */
+.coming-soon-features-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    margin-bottom: 36px;
+    text-align: left;
+}
+
+.teaser-card {
+    background: #ffffff;
+    border: 1px solid rgba(0, 0, 0, 0.07);
+    border-radius: 16px;
+    padding: 20px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.02);
+}
+
+.teaser-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.06);
+}
+
+.teaser-icon-dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    margin-bottom: 4px;
+}
+
+.teaser-icon-dot.blue { background-color: var(--google-blue); box-shadow: 0 0 10px rgba(66, 133, 244, 0.5); }
+.teaser-icon-dot.green { background-color: var(--google-green); box-shadow: 0 0 10px rgba(52, 168, 83, 0.5); }
+.teaser-icon-dot.yellow { background-color: var(--google-yellow); box-shadow: 0 0 10px rgba(251, 188, 4, 0.5); }
+.teaser-icon-dot.red { background-color: var(--google-red); box-shadow: 0 0 10px rgba(234, 67, 53, 0.5); }
+
+.teaser-card h4 {
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin: 0;
+}
+
+.teaser-card p {
+    font-size: 0.85rem;
+    color: var(--text-light);
+    margin: 0;
+    line-height: 1.4;
+}
+
+/* Call for Speakers Banner */
+.cfs-banner {
+    background: linear-gradient(135deg, rgba(66, 133, 244, 0.04), rgba(52, 168, 83, 0.04));
+    border: 1.5px dashed rgba(66, 133, 244, 0.35);
+    border-radius: 20px;
+    padding: 28px 24px;
+    margin: 0 auto 30px auto;
+    max-width: 640px;
+    text-align: center;
+}
+
+.cfs-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--google-blue), var(--google-green));
+    color: #ffffff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 20px;
+    margin-bottom: 12px;
+}
+
+.cfs-banner h4 {
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--text-main);
+    margin-bottom: 8px;
+}
+
+.cfs-banner p {
+    font-size: 0.95rem;
+    color: var(--text-light);
+    margin-bottom: 20px;
+}
+
+.coming-soon-actions {
+    display: flex;
+    gap: 16px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+@media (max-width: 768px) {
+    .coming-soon-card {
+        padding: 36px 20px;
+        border-radius: 20px;
+    }
+
+    .coming-soon-title {
+        font-size: 1.7rem;
+    }
+
+    .coming-soon-features-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+    }
+
+    .teaser-card {
+        padding: 14px 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .coming-soon-features-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .coming-soon-actions {
+        flex-direction: column;
+        width: 100%;
+    }
+
+    .coming-soon-actions .btn {
+        width: 100%;
     }
 }

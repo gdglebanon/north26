@@ -1,3 +1,24 @@
+/**
+ * DevFest 2026 Configuration & Data Store
+ * Easily toggle sections on/off by setting showAgenda, showSpeakers, or showSponsors to true or false.
+ * You can edit the arrays below with your 2026 data whenever you're ready!
+ */
+const devFestConfig = {
+    year: "2026",
+    edition: "DevFest Tripoli 2026",
+    tagline: "GDG North Lebanon",
+    dateDisplay: "Coming in 2026",
+    locationDisplay: "Tripoli, Lebanon",
+    registrationUrl: "https://rsvp.gdglebanon.com/",
+    contactEmail: "info@gdglebanon.com",
+
+    // Visibility toggles: Set to true when you want to reveal the full content!
+    showAgenda: false,          // Toggle agenda schedule / tracks
+    showSpeakers: false,        // Toggle speakers grid
+    showSponsors: false,        // Toggle sponsors grid
+    showBadgeGenerator: false,  // Toggle badge generator
+};
+
 const devFestData = {
     sessions: [
     {
