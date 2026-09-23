@@ -644,7 +644,7 @@ function renderSponsorsComingSoon(container) {
         </p>
         <div class="coming-soon-actions">
             <a href="https://docs.google.com/presentation/d/1NdlhLGxZ24IsxbqB2D7CYLVs-2xVUxfKrc5WmAPlBzQ/edit?usp=sharing" target="_blank" rel="noopener" class="btn btn-primary">Become a Sponsor</a>
-            <a href="https://docs.google.com/presentation/d/1NdlhLGxZ24IsxbqB2D7CYLVs-2xVUxfKrc5WmAPlBzQ/edit?usp=sharing" target="_blank" rel="noopener" class="btn btn-secondary">Partner as Community</a>
+            <a href="https://docs.google.com/presentation/d/1NdlhLGxZ24IsxbqB2D7CYLVs-2xVUxfKrc5WmAPlBzQ/edit?usp=sharing" target="_blank" rel="noopener" class="btn btn-secondary">Partner</a>
         </div>
     `;
     container.appendChild(comingSoonWrap);
